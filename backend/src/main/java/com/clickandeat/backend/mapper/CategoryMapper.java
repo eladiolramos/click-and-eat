@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 public class CategoryMapper {
     public CategoryResponseDTO toCategoryResponseDTO(Category entity) {
         if (entity == null) return null;
-        return CategoryResponseDTO.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .build();
+        return new CategoryResponseDTO(entity.getId(), entity.getName());
     }
 
     public Category toEntity(CategoryRequestDTO dto) {

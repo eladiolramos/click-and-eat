@@ -6,12 +6,16 @@ import com.clickandeat.backend.entity.Category;
 import com.clickandeat.backend.mapper.CategoryMapper;
 import com.clickandeat.backend.repository.CategoryRepository;
 import com.clickandeat.backend.service.CategoryService;
+import com.clickandeat.backend.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.clickandeat.backend.util.StringUtils.capitalize;
 
 @Service
 @RequiredArgsConstructor
@@ -19,18 +23,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
-
-    // Método para poner la primera letra en mayúscula
-    private String capitalize(String name) {
-
-        if (name == null || name.isBlank()) {
-            return name;
-        }
-
-        String cleanName = name.trim();
-
-        return cleanName.substring(0, 1).toUpperCase() + cleanName.substring(1).toLowerCase();
-    }
 
     @Override
     @Transactional
@@ -54,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Category with id " + id + " does not exist"));
 
-        String cleanNameDto = capitalize(categoryRequestDTO.name());
+        String cleanNameDto = StringUtils.capitalize(categoryRequestDTO.name());
 
         if(categoryRepository.existsByNameAndIdNot(cleanNameDto, id)){
             throw new IllegalArgumentException("Category with name " + cleanNameDto + " already exists");

@@ -2,10 +2,8 @@ package com.clickandeat.backend.service;
 
 import com.clickandeat.backend.dto.CategoryRequestDTO;
 import com.clickandeat.backend.dto.CategoryResponseDTO;
-import com.clickandeat.backend.repository.CategoryRepository;
 
 import java.util.List;
-import java.util.Locale;
 
 public interface CategoryService {
 
